@@ -7,8 +7,8 @@ public class Login extends JFrame {
 
     public Login() {
         // Paramètres de la fenêtre principale
-        setTitle("Gestion des employées");
-        setSize(600, 300);
+        setTitle("Gestion des employées / Page de Connexion");
+        setSize(800, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrer la fenêtre
 
@@ -45,7 +45,7 @@ public class Login extends JFrame {
         leftPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         // Ajouter du texte de bienvenue
-        JLabel welcomeLabel = new JLabel("Bon retour Administrateur !");
+        JLabel welcomeLabel = new JLabel("Page de Connexion");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
         welcomeLabel.setForeground(new Color(28, 89, 80));
 
@@ -57,7 +57,7 @@ public class Login extends JFrame {
         JTextField usernameField = new JTextField(15);
         JPasswordField passwordField = new JPasswordField(15);
         JButton loginButton = new JButton("Connexion");
-        JButton registerButton = new JButton("S'inscrire"); // Nouveau bouton d'inscription
+        JButton registerButton = new JButton("S'inscrire"); 
 
         // Événement de connexion
         loginButton.addActionListener(new ActionListener() {
@@ -66,9 +66,9 @@ public class Login extends JFrame {
                 String password = new String(passwordField.getPassword());
                 // Logique d'authentification ici
                 if (username.equals("admin") && password.equals("admin")) {
-                    JOptionPane.showMessageDialog(null, "Login successful!");
+                    JOptionPane.showMessageDialog(null, "Connexion réussie !");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Invalid credentials!");
+                    JOptionPane.showMessageDialog(null, "Identifiants invalides !");
                 }
             }
         });
