@@ -30,11 +30,18 @@ public class EvenementLogin implements ActionListener {
     private void handleLogin() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
+
+        // Vérification des champs vides
+        if(username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs !");
+            return;
+        }
+
         // Logique d'authentification ici
         if (username.equals("admin") && password.equals("admin")) {
             JOptionPane.showMessageDialog(null, "Connexion réussie !");
         } else {
-            JOptionPane.showMessageDialog(null, "Identifiants invalides !");
+            JOptionPane.showMessageDialog(null, "Email ou mot de passe incorrect !");
         }
     }
 

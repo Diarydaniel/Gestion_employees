@@ -36,12 +36,15 @@ public class EvenementRegister implements ActionListener {
         String prenom = prenomField.getText();
         String email = emailField.getText();
         String password = new String(passwordField.getPassword());
-        // Logique d'inscription ici
-        if (email.equals("admin@example.com") && password.equals("admin")) {
-            JOptionPane.showMessageDialog(null, "Inscription réussie !");
-        } else {
-            JOptionPane.showMessageDialog(null, "Informations invalides !");
+
+        // Vérification des champs vides
+        if(nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs !");
+            return;
         }
+
+        // Logique d'inscription ici
+        JOptionPane.showMessageDialog(null, "Inscription réussie !");
     }
 
     private void handleLogin() {

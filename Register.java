@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Register extends JFrame {
 
@@ -21,11 +19,16 @@ public class Register extends JFrame {
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setLayout(new GridBagLayout());
 
-        // Ajouter un icône à gauche
-        ImageIcon icon = new ImageIcon("icons/Users.png"); // Remplacer par votre image
-        Image img = icon.getImage(); // Obtenir l'image
-        Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Redimensionner
-        icon = new ImageIcon(scaledImg); // Créer un nouvel ImageIcon avec l'image redimensionnée
+        // Gestion des icônes avec vérification
+        ImageIcon icon = null;
+        try {
+            icon = new ImageIcon("icons/Users.png"); // Remplacer par votre image
+            Image img = icon.getImage(); // Obtenir l'image
+            Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Redimensionner
+            icon = new ImageIcon(scaledImg); // Créer un nouvel ImageIcon avec l'image redimensionnée
+        } catch (Exception ex) {
+            System.out.println("Image not found.");
+        }
 
         JLabel iconLabel = new JLabel();
         iconLabel.setIcon(icon);
