@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
 
@@ -59,28 +57,6 @@ public class Login extends JFrame {
         JButton loginButton = new JButton("Connexion");
         JButton registerButton = new JButton("S'inscrire"); 
 
-        // Événement de connexion
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-                // Logique d'authentification ici
-                if (username.equals("admin") && password.equals("admin")) {
-                    JOptionPane.showMessageDialog(null, "Connexion réussie !");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Identifiants invalides !");
-                }
-            }
-        });
-
-        // Événement d'inscription
-        registerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Fermer la fenêtre de connexion
-                new Register(); // Ouvrir la fenêtre d'inscription
-            }
-        });
-
         // Agencement des éléments dans le panneau droit
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -118,6 +94,9 @@ public class Login extends JFrame {
         getContentPane().setLayout(new GridLayout(1, 2));
         getContentPane().add(leftPanel);
         getContentPane().add(rightPanel);
+
+        // Créer l'objet EvenementLogin
+        new EvenementLogin(usernameField, passwordField, loginButton, registerButton);
 
         setVisible(true);
     }

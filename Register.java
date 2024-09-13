@@ -63,30 +63,6 @@ public class Register extends JFrame {
         JButton registerButton = new JButton("S'inscrire");
         JButton loginButton = new JButton("Se connecter"); // Nouveau bouton de connexion
 
-        // Événement d'inscription
-        registerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String nom = nomField.getText();
-                String prenom = prenomField.getText();
-                String email = emailField.getText();
-                String password = new String(passwordField.getPassword());
-                // Logique d'inscription ici
-                if (email.equals("admin@example.com") && password.equals("admin")) {
-                    JOptionPane.showMessageDialog(null, "Inscription réussie !");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Informations invalides !");
-                }
-            }
-        });
-
-        // Événement de connexion
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Fermer la fenêtre d'inscription
-                new Login(); // Ouvrir la fenêtre de connexion
-            }
-        });
-
         // Agencement des éléments dans le panneau droit
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -138,6 +114,9 @@ public class Register extends JFrame {
         getContentPane().setLayout(new GridLayout(1, 2));
         getContentPane().add(leftPanel);
         getContentPane().add(rightPanel);
+
+        // Créer l'objet EvenementRegister
+        new EvenementRegister(nomField, prenomField, emailField, passwordField, registerButton, loginButton);
 
         setVisible(true);
     }
