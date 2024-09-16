@@ -2,8 +2,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.*;
-import java.awt.event.ActionListener; // Pour ActionListener
-import java.awt.event.ActionEvent;    // Pour ActionEvent
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EvenementRegister implements ActionListener {
 
@@ -56,6 +56,9 @@ public class EvenementRegister implements ActionListener {
             statement.setString(4, password);
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Inscription réussie !");
+            
+            // Réinitialisation des champs
+            clearFields();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -67,5 +70,13 @@ public class EvenementRegister implements ActionListener {
             topFrame.dispose(); // Fermer la fenêtre d'inscription
             new Login(); // Ouvrir la fenêtre de connexion
         }
+    }
+
+    // Méthode pour vider les champs
+    private void clearFields() {
+        nomField.setText("");
+        prenomField.setText("");
+        emailField.setText("");
+        passwordField.setText("");
     }
 }
