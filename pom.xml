@@ -1,0 +1,5 @@
+<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+    <version>3.0.0</version> <!-- Utilisez la version la plus récente -->
+</dependency>
