@@ -3,17 +3,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.*;
-import java.awt.event.ActionListener; // Pour ActionListener
-import java.awt.event.ActionEvent;    // Pour ActionEvent
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class EvenementLogin implements ActionListener {
 
-    private JTextField usernameField;
+    private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton registerButton;
 
-    public EvenementLogin(JTextField usernameField, JPasswordField passwordField, JButton loginButton, JButton registerButton) {
-        this.usernameField = usernameField;
+    public EvenementLogin(JTextField emailField, JPasswordField passwordField, JButton loginButton, JButton registerButton) {
+        this.emailField = emailField;
         this.passwordField = passwordField;
         this.loginButton = loginButton;
         this.registerButton = registerButton;
@@ -31,27 +32,36 @@ public class EvenementLogin implements ActionListener {
     }
 
     private void handleLogin() {
-        String username = usernameField.getText();
+        String email = emailField.getText();
         String password = new String(passwordField.getPassword());
 
         // Vérification des champs vides
-        if (username.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs !");
             return;
         }
 
-        // Connexion à la base de données pour vérifier l'utilisateur
+        // Connexion à la base de données et vérification des informations
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql = "SELECT * FROM employes WHERE email = ? AND mot_de_passe = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, username);
+            statement.setString(1, email);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                JOptionPane.showMessageDialog(null, "Connexion réussie !");
+                // Informations correctes, ouvrir la fenêtre Home
+                SwingUtilities.invokeLater(() -> {
+                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(loginButton);
+                    if (topFrame != null) {
+                        topFrame.dispose(); // Fermer la fenêtre de connexion
+                    }
+                    // Créer et afficher la fenêtre Home
+                    Home home = new Home();
+                    home.setVisible(true);
+                });
             } else {
-                JOptionPane.showMessageDialog(null, "Email ou mot de passe incorrect !");
+                JOptionPane.showMessageDialog(null, "Identifiants incorrects !");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
