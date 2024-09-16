@@ -30,6 +30,7 @@ public class Login extends JFrame {
             System.out.println("Image not found.");
         }
 
+        //Emplacement des images 
         JLabel iconLabel = new JLabel();
         iconLabel.setIcon(icon);
         iconLabel.setHorizontalAlignment(JLabel.CENTER); // Centrer l'image horizontalement
@@ -104,6 +105,8 @@ public class Login extends JFrame {
         new EvenementLogin(usernameField, passwordField, loginButton, registerButton);
 
         setVisible(true);
+
+        setVisible(false);
     }
 
     public static void main(String[] args) {
