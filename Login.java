@@ -106,7 +106,6 @@ public class Login extends JFrame {
 
         setVisible(true);
 
-        setVisible(false);
     }
 
     public static void main(String[] args) {

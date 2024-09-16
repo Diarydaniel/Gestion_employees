@@ -1,7 +1,10 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.ActionListener; // Pour ActionListener
+import java.awt.event.ActionEvent;    // Pour ActionEvent
 public class EvenementLogin implements ActionListener {
 
     private JTextField usernameField;
@@ -32,16 +35,26 @@ public class EvenementLogin implements ActionListener {
         String password = new String(passwordField.getPassword());
 
         // Vérification des champs vides
-        if(username.isEmpty() || password.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs !");
             return;
         }
 
-        // Logique d'authentification ici
-        if (username.equals("admin") && password.equals("admin")) {
-            JOptionPane.showMessageDialog(null, "Connexion réussie !");
-        } else {
-            JOptionPane.showMessageDialog(null, "Email ou mot de passe incorrect !");
+        // Connexion à la base de données pour vérifier l'utilisateur
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM employes WHERE email = ? AND mot_de_passe = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(null, "Connexion réussie !");
+            } else {
+                JOptionPane.showMessageDialog(null, "Email ou mot de passe incorrect !");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 

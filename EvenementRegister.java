@@ -1,6 +1,9 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionListener; // Pour ActionListener
+import java.awt.event.ActionEvent;    // Pour ActionEvent
 
 public class EvenementRegister implements ActionListener {
 
@@ -38,13 +41,24 @@ public class EvenementRegister implements ActionListener {
         String password = new String(passwordField.getPassword());
 
         // Vérification des champs vides
-        if(nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs !");
             return;
         }
 
-        // Logique d'inscription ici
-        JOptionPane.showMessageDialog(null, "Inscription réussie !");
+        // Insertion des données dans la base de données
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "INSERT INTO employes (nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, nom);
+            statement.setString(2, prenom);
+            statement.setString(3, email);
+            statement.setString(4, password);
+            statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Inscription réussie !");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void handleLogin() {

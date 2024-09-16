@@ -20,3 +20,8 @@
 ## Technologies
 - **Backend**: Java
 - **Frontend**: Java Swing JFrame
+
+## Base de données
+javac -cp libs/mysql-connector-java-8.0.20.jar:. *.java
+java -cp libs/mysql-connector-java-8.0.20.jar:. Login
+
